@@ -1,31 +1,51 @@
 let containerGrid = document.querySelector('.container');
 
+createGrid(16);
+
+let resetButton = document.querySelector('#reset');
+resetButton.addEventListener('click', askAndCreate);
+
+function askAndCreate(){
+    let numOfPix = prompt('How many pixels per side do you want? (Keep it under 100.)', '16');
+    numOfPix = Number(numOfPix);
+
+    //Remove the existing grid first.
+    while(containerGrid.hasChildNodes()){
+        containerGrid.removeChild(containerGrid.firstChild);
+    }
+    //Create the new grid.
+    createGrid(numOfPix);
+}
+
 //Create divs for the grid.
 
-for (let i = 0; i < 16; i++){
-    //Create X number of rows.
-    let littleGrid = document.createElement('div');
-    littleGrid.setAttribute('style', 'display: flex; max-width: 960px;');
+function createGrid(x){
+    for (let i = 0; i < x; i++){
 
-    for (let i = 0; i < 16; i++){
-        //Create X number of little divs and put them in a row.
+        //Create X number of rows.
+        let littleGrid = document.createElement('div');
+        littleGrid.setAttribute('style', 'display: flex; max-width: 960px; margin: auto;');
+
+        for (let i = 0; i < x; i++){
+            //Create X number of little divs and put them in a row.
         
-        let littleDiv = document.createElement('div');
-        littleDiv.setAttribute('style','height: 70px; width: 70px; border-color: black; border: 1px solid;');
-        littleDiv.classList.add('pixel');
-        //Put the divs in the container.
+            let littleDiv = document.createElement('div');
+            littleDiv.setAttribute('style','height: 60px; width: 60px; border-color: black; border: 1px solid;');
+            littleDiv.classList.add('pixel');
+            //Put the divs in the container.
         
-        littleGrid.appendChild(littleDiv);
+            littleGrid.appendChild(littleDiv);
+        }
+        containerGrid.appendChild(littleGrid);
     }
-    containerGrid.appendChild(littleGrid);
+    let pix = document.querySelectorAll('.pixel');
+
+    //Add an event listener to every pixel.
+    pix.forEach((p) => {
+        p.addEventListener('mouseover', changeColor);
+    });
 }
 
 function changeColor(e){
-    e.target.style.background = 'blue';
+    e.target.style.background = 'black';
 }
-
-let pix = document.querySelectorAll('.pixel');
-
-pix.forEach((p) => {
-    p.addEventListener('mouseover', changeColor);
-});
