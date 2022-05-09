@@ -24,13 +24,13 @@ function createGrid(x){
 
         //Create X number of rows.
         let littleGrid = document.createElement('div');
-        littleGrid.setAttribute('style', 'display: flex; max-width: 960px; margin: auto;');
+        littleGrid.setAttribute('style', 'display: flex; flex: 1 1 auto;');
 
         for (let i = 0; i < x; i++){
             //Create X number of little divs and put them in a row.
         
             let littleDiv = document.createElement('div');
-            littleDiv.setAttribute('style','height: 60px; width: 60px; border-color: black; border: 1px solid;');
+            littleDiv.setAttribute('style','border-color: black; border: 1px solid; flex: 1 1 auto;');
             littleDiv.classList.add('pixel');
             //Put the divs in the container.
         
