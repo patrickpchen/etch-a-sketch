@@ -10,4 +10,13 @@ button {
 
 .button_container {
     justify-content: center;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 960px;
+    width: 960px;
+    margin: auto;
 }
