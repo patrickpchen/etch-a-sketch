@@ -1,6 +1,6 @@
 let containerGrid = document.querySelector('.container');
 
-createGrid(16);
+createDefaultGrid(16);
 
 let resetButton = document.querySelector('#reset');
 resetButton.addEventListener('click', askAndCreate);
@@ -16,11 +16,26 @@ function askAndCreate(){
             containerGrid.removeChild(containerGrid.firstChild);
         }
         //Create the new grid.
-        createGrid(numOfPix);
+        createColorGrid(numOfPix);
     }
 }
 
-//Create divs for the grid.
+function createDefaultGrid(x){
+    createGrid(x);    
+    let pix = document.querySelectorAll('.pixel');
+    pix.forEach((p) => {
+        p.addEventListener('mouseover', changeColorDefault);
+    });
+}
+
+function createColorGrid(x){
+    createGrid(x);    
+    let pix = document.querySelectorAll('.pixel');
+    pix.forEach((p) => {
+        p.addEventListener('mouseover', changeColorRandomly);
+    });
+}
+
 function createGrid(x){
     for (let i = 0; i < x; i++){
         //Create X number of rows.
@@ -37,13 +52,17 @@ function createGrid(x){
         }
         containerGrid.appendChild(littleGrid);
     }
-    let pix = document.querySelectorAll('.pixel');
-    //Add an event listener to every pixel.
-    pix.forEach((p) => {
-        p.addEventListener('mouseover', changeColor);
-    });
 }
 
-function changeColor(e){
+//The default is black and white.
+
+function changeColorDefault(e){
     e.target.style.background = 'black';
+}
+
+function changeColorRandomly(e){
+    let r = Math.round((Math.random())*1000) % 256;
+    let g = Math.round((Math.random())*1000) % 256;
+    let b = Math.round((Math.random())*1000) % 256;
+    e.target.style.background = `rgb(${r}, ${g}, ${b})`;
 }
