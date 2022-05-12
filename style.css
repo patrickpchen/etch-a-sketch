@@ -1,11 +1,24 @@
 button {
-    background-color: black;
-    color: white;
-    font-size: 18px;
-    padding: 10px 30px;
+    font-size: 16px;
+    padding: 10px 15px;
     border-radius: 12px;
     border-width: 0px;
     margin: 50px;
+}
+
+#default {
+    background-color: black;
+    color: white;
+}
+
+#random_color {
+    background-image: linear-gradient(to right, red, purple);
+    color: white;
+}
+
+#grayscale{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: black;
 }
 
 .button_container {
