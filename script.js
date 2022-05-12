@@ -11,7 +11,7 @@ let colorButton = document.querySelector('#random_color');
 colorButton.addEventListener('click', resetToColor);
 
 let grayscaleButton = document.querySelector('#grayscale');
-grayscaleButton.addEventListener('click', askAndCreate);
+grayscaleButton.addEventListener('click', resetToGrayscale);
 
 //Create three different functions for the three buttons.
 function resetToDefault(){
@@ -44,7 +44,7 @@ function resetToColor(){
     }
 }
 
-function askAndCreate(){
+function resetToGrayscale(){
     let numOfPix = prompt('How many pixels per side do you want? (Keep it under 100.)', '16');
     if (numOfPix < 0 || numOfPix > 100){
         alert ("Please provide a value between 1 and 100.");
@@ -55,12 +55,12 @@ function askAndCreate(){
             containerGrid.removeChild(containerGrid.firstChild);
         }
         //Create the new grid.
-        createColorGrid(numOfPix);
+        createGrayGrid(numOfPix);
     }
 }
 
-
-
+//Add different event listeners to the pixels
+//based on the buttons the user clicked.
 function createDefaultGrid(x){
     createGrid(x);    
     let pix = document.querySelectorAll('.pixel');
@@ -74,6 +74,14 @@ function createColorGrid(x){
     let pix = document.querySelectorAll('.pixel');
     pix.forEach((p) => {
         p.addEventListener('mouseover', changeColorRandomly);
+    });
+}
+
+function createGrayGrid(x){
+    createGrid(x);    
+    let pix = document.querySelectorAll('.pixel');
+    pix.forEach((p) => {
+        p.addEventListener('mouseover', changeColorGrayscale);
     });
 }
 
@@ -107,4 +115,32 @@ function changeColorRandomly(e){
     let g = Math.round((Math.random())*1000) % 256;
     let b = Math.round((Math.random())*1000) % 256;
     e.target.style.background = `rgb(${r}, ${g}, ${b})`;
+}
+
+//Add 10% shade with every pass-through
+function changeColorGrayscale(e){
+    if (e.target.style.background === 'rgb(0, 0, 0)'){
+        return;
+    } else if (e.target.style.background === 'rgba(0, 0, 0, 0.9)'){
+        e.target.style.background = 'rgb(0, 0, 0)';
+    } else if(e.target.style.background === 'rgba(0, 0, 0, 0.8)'){
+        e.target.style.background = 'rgba(0, 0, 0, 0.9)';
+    } else if(e.target.style.background === 'rgba(0, 0, 0, 0.7)'){
+        e.target.style.background = 'rgba(0, 0, 0, 0.8)';
+    } else if(e.target.style.background === 'rgba(0, 0, 0, 0.6)'){
+        e.target.style.background = 'rgba(0, 0, 0, 0.7)';
+    } else if(e.target.style.background === 'rgba(0, 0, 0, 0.5)'){
+        e.target.style.background = 'rgba(0, 0, 0, 0.6)';
+    } else if(e.target.style.background === 'rgba(0, 0, 0, 0.4)'){
+        e.target.style.background = 'rgba(0, 0, 0, 0.5)';
+    } else if(e.target.style.background === 'rgba(0, 0, 0, 0.3)'){
+        e.target.style.background = 'rgba(0, 0, 0, 0.4)';
+    } else if(e.target.style.background === 'rgba(0, 0, 0, 0.2)'){
+        e.target.style.background = 'rgba(0, 0, 0, 0.3)';
+    } else if(e.target.style.background === 'rgba(0, 0, 0, 0.1)'){
+        e.target.style.background = 'rgba(0, 0, 0, 0.2)';
+    } else {
+        e.target.style.background = 'rgba(0, 0, 0, 0.1)';
+    }
+    console.log(e.target.style.background);
 }
